@@ -6,6 +6,10 @@ const RootDir = "folder"
 var dirs, files, exts: seq[string]
 
 
+dirs = getDirs(RootDir).mapIt(it.replace(' ', '_'))
+files = getFiles(RootDir)
+exts = getFiles(RootDir).mapIt(it.splitFile().ext)
+
 
 # Не изменяйте код ниже
 import sets
