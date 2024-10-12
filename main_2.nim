@@ -5,12 +5,10 @@ const RootDir = "folder"
 # Ниже реализуйте требуемую задачу
 var dirs, files, exts: seq[string]
 
-#использую функции из файла utils.nim 
-for dir in getDirs(RootDir):
-    dirs.add dir.replace(' ', '_')
-for file in getFiles(RootDir):
-    files.add file
-    exts.add file.splitFile().ext
+
+dirs = getDirs(RootDir).mapIt(it.replace(' ', '_'))
+files = getFiles(RootDir)
+exts = getFiles(RootDir).mapIt(it.splitFile().ext)
 
 
 # Не изменяйте код ниже
