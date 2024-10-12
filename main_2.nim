@@ -5,28 +5,12 @@ const RootDir = "folder"
 # Ниже реализуйте требуемую задачу
 var dirs, files, exts: seq[string]
 
-var allFiles: seq[tuple[kind: PathComponent, path: string]]#тут буду хранить вообще все файлы и папки
-#корневая пара, фолдер + его kind, начиная с корня остальное будет собираться
-const Root : tuple[kind: PathComponent, path: string] = (pcDir, RootDir)
-allFiles.add Root
-
-var ind = 0
-#будет добавлять в allFiles значения, пока находим новые папки. По сути - стек, только без операции удаления
-while ind != allFiles.len:
-    if allFiles[ind].kind == pcDir:
-        #добавим в список всех файлов, файлы которые лежат в этой папке
-        for entry in walkDir(allFiles[ind].path):
-            allFiles.add entry
-        #имя самой папки сразу кидаем в dirs, предварительно меняем пробел на _
-        dirs.add allFiles[ind].path.replace(' ', '_')
-    #Ежели сейчас данные - файл. То будем добавлять в файлы имя файла, а в exts расширения
-    if allFiles[ind].kind == pcFile:
-        let nowFile = allFiles[ind].path.split("\\")
-        if nowFile[nowFile.len - 1][0] != '.':
-            #чуть потеряли в эффективности из-за splitов, ну да ладно, задача не требовала большего
-            files.add nowFile[nowFile.len - 1]
-            exts.add '.' & nowFile[nowFile.len - 1].split('.')[nowFile[nowFile.len - 1].split('.').len - 1]
-    ind += 1
+#использую функции из файла utils.nim 
+for dir in getDirs(RootDir):
+    dirs.add dir.replace(' ', '_')
+for file in getFiles(RootDir):
+    files.add file
+    exts.add file.splitFile().ext
 
 
 # Не изменяйте код ниже
