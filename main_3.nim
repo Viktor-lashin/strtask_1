@@ -6,6 +6,10 @@ var text = """English texts for b3ginners to practice read7ng and comprehension 
 var schars, counter, numbers: int
 
 
+schars = findAll(text, re"[^0-9^a-z^A-Z]").len
+counter = findAll(text, re"[a]").len
+numbers = findAll(text, re"[0-9]").join("").parseInt
+
 
 # Не изменяйте код ниже
 doAssert schars == 57
